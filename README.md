@@ -2,6 +2,10 @@
 
 Reusable AI work assets for teams and individuals who want better starting points without inheriting someone else's whole operating system.
 
+## Start Here
+
+If you are new to this repo or sharing it with a teammate, read [`START-HERE.md`](START-HERE.md) first. It explains what to use, what to install, how to install selected skills, and how to adopt ForgeFlow in another project.
+
 This repo is intentionally simple:
 
 | Folder | Use it for |
@@ -12,7 +16,7 @@ This repo is intentionally simple:
 
 ## Quick Start
 
-Browse before installing:
+Browse before installing anything:
 
 ```bash
 SKILL-BANK/tools/skill-bank list
@@ -39,6 +43,8 @@ cp -R framework/starter/. .
 ```
 
 Then follow `framework/START-HERE.md`.
+
+For team onboarding, fuller install notes, and troubleshooting, use [`START-HERE.md`](START-HERE.md).
 
 ## How To Think About This Repo
 
