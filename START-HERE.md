@@ -9,6 +9,7 @@ This repo is a library of reusable AI work assets. It is not something to instal
 | Folder | Use it when | What you do |
 |--------|-------------|-------------|
 | `SKILL-BANK/` | You want a reusable AI skill for Claude or Codex. | Browse the list, then install selected skill IDs into a target project. |
+| `REFERENCES/` | You need a reusable decision guide, standard, or tech-stack reference. | Read only the matching reference and apply its default or approved choices. |
 | `WORKFLOW/` | You want a workflow system for planning, verification, handoff, and repeatable AI-assisted work. | Copy `WORKFLOW/forgeflow` into a target project as `framework/`. |
 | `CREATIVES/` | You want a lightweight way to track design references, inspiration, assets, and usage notes. | Copy the index template or follow the folder model. |
 
@@ -19,6 +20,7 @@ Choose by need:
 | Need | Install or copy |
 |------|-----------------|
 | A specific writing, planning, design, research, or operations capability | One or more selected skills from `SKILL-BANK/skills/`. |
+| A default tool choice or technology decision | A selected document from `REFERENCES/`, such as `REFERENCES/technology/Xyric-Tech-Stack.md`. |
 | A repeatable project workflow for AI agents and humans | `WORKFLOW/forgeflow` copied as `framework/` in the target project. |
 | A creative reference library | `CREATIVES/creatives-index.template.yaml` copied into your project or workspace. |
 | Everything in this repo | Do not do this by default. Browse first and select what helps the current project. |
@@ -167,6 +169,8 @@ If a skill does not install:
 - Use `--allow-category` only when intentionally installing a whole domain.
 
 If ForgeFlow feels like too much for a small task, use one selected skill instead. ForgeFlow is for projects that need planning, verification, handoff, and durable workflow memory.
+
+If a teammate is choosing tools for a Xyric software project, start with `REFERENCES/technology/Xyric-Tech-Stack.md`. Any `Decision needed` rows should be resolved before implementation starts.
 
 If a teammate is unsure where to begin, ask what they are trying to do:
 

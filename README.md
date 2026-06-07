@@ -11,6 +11,7 @@ This repo is intentionally simple:
 | Folder | Use it for |
 |--------|------------|
 | `SKILL-BANK/` | Copy selected skills into Claude or Codex when they are useful for your project. |
+| `REFERENCES/` | Read reusable decision guides such as the Xyric tech stack before choosing tools. |
 | `CREATIVES/` | Track design inspiration, references, assets, and examples through a lightweight index. Store heavy files in Drive or another asset store. |
 | `WORKFLOW/` | Adopt ForgeFlow, a reusable workflow for serious AI-assisted work. |
 
@@ -43,6 +44,12 @@ cp -R framework/starter/. .
 ```
 
 Then follow `framework/START-HERE.md`.
+
+Use the tech stack reference:
+
+```text
+REFERENCES/technology/Xyric-Tech-Stack.md
+```
 
 For team onboarding, fuller install notes, and troubleshooting, use [`START-HERE.md`](START-HERE.md).
 
