@@ -23,6 +23,7 @@ This repo is a public library of reusable AI work assets. It is not a product re
 | Folder | Agent behavior |
 |--------|----------------|
 | `SKILL-BANK/` | Search/list first; install selected skills only. |
+| `REFERENCES/` | Read only the reference needed for the task. Treat defaults as binding and unresolved decisions as questions, not guesses. |
 | `CREATIVES/` | Use indexes and notes to find references. Preserve attribution and usage notes. |
 | `WORKFLOW/` | Use ForgeFlow for project workflow adoption, verification, handoff, and capability building. |
 

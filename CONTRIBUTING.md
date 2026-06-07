@@ -6,6 +6,7 @@ Thanks for improving Xyric Frameworks. The goal is a practical public library th
 
 - Portable skills that teach a method, workflow, or role.
 - Instructions for adapting a skill to a team, brand, workflow, or project.
+- Portable reference documents for reusable standards, decision guides, and technology choices.
 - Creative reference indexes and contribution patterns.
 - Workflow material that helps teams run AI-assisted work more reliably.
 
