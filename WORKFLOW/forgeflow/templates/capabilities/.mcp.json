@@ -1,0 +1,17 @@
+{
+  "_comment": "TEMPLATE (FRAMEWORK.md §C11.5). Project-scoped MCP servers = typed connections to external systems. Claude can use repo-root .mcp.json. Codex commonly wires MCP in .codex/config.toml or through an installed plugin; mirror the same server contract there when needed. Secrets come from environment/config, never hard-coded tokens. Prefer wrapping MCP calls inside a skill with guardrails. Replace placeholders and delete this _comment key.",
+  "mcpServers": {
+    "<remote-service>": {
+      "type": "http",
+      "url": "${SERVICE_BASE_URL:-https://api.example.com}/mcp",
+      "headers": {
+        "Authorization": "Bearer ${SERVICE_API_TOKEN}"
+      }
+    },
+    "<local-server>": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["<mcp-package>", "--dsn", "${DATABASE_URL}"]
+    }
+  }
+}

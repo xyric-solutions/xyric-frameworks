@@ -1,0 +1,176 @@
+version: 1
+
+tiers:
+  generic: Use as-is.
+  optional-adapt: Works neutral out of the box; ADAPT.md notes optional enrichment.
+  needs-adapt: Read ADAPT.md before tailored use.
+
+skills:
+  - id: MKT-01
+    name: Campaign Planner
+    domain: marketing
+    path: skills/marketing/MKT-01-campaign-planner
+    tier: needs-adapt
+    status: ready
+  - id: MKT-02
+    name: Brand Voice Guardian
+    domain: marketing
+    path: skills/marketing/MKT-02-brand-voice-guardian
+    tier: needs-adapt
+    status: ready
+  - id: MKT-03
+    name: Brand Guidelines
+    domain: marketing
+    path: skills/marketing/MKT-03-brand-guidelines
+    tier: needs-adapt
+    status: ready
+  - id: MKT-04
+    name: Content Copy Engine
+    domain: marketing
+    path: skills/marketing/MKT-04-content-copy-engine
+    tier: needs-adapt
+    status: ready
+  - id: MKT-05
+    name: Founder Brand Writer
+    domain: marketing
+    path: skills/marketing/MKT-05-founder-brand-writer
+    tier: needs-adapt
+    status: ready
+  - id: MKT-07
+    name: ICP & UCP Targeting
+    domain: marketing
+    path: skills/marketing/MKT-07-icp-ucp-targeting
+    tier: needs-adapt
+    status: ready
+  - id: CONTENT-01
+    name: LinkedIn Content
+    domain: content
+    path: skills/content/CONTENT-01-social-linkedin
+    tier: needs-adapt
+    status: ready
+  - id: CONTENT-02
+    name: Social Content - Twitter/X
+    domain: content
+    path: skills/content/CONTENT-02-social-twitter
+    tier: needs-adapt
+    status: ready
+  - id: CONTENT-03
+    name: Instagram Content
+    domain: content
+    path: skills/content/CONTENT-03-social-instagram
+    tier: needs-adapt
+    status: ready
+  - id: EMAIL-01
+    name: Client Communication
+    domain: communications
+    path: skills/communications/EMAIL-01-client-communication
+    tier: needs-adapt
+    status: ready
+  - id: EMAIL-04
+    name: Cold Outreach
+    domain: communications
+    path: skills/communications/EMAIL-04-cold-outreach
+    tier: needs-adapt
+    status: ready
+  - id: EXPERT-10
+    name: Product Manager
+    domain: product-planning
+    path: skills/product-planning/EXPERT-10-product-manager
+    tier: needs-adapt
+    status: ready
+  - id: EXPERT-13
+    name: Story Generator
+    domain: product-planning
+    path: skills/product-planning/EXPERT-13-story-generator
+    tier: needs-adapt
+    status: ready
+  - id: EXPERT-14
+    name: Story Spec Generator
+    domain: product-planning
+    path: skills/product-planning/EXPERT-14-story-spec-generator
+    tier: needs-adapt
+    status: ready
+  - id: EXPERT-15
+    name: Task Generator
+    domain: product-planning
+    path: skills/product-planning/EXPERT-15-task-generator
+    tier: needs-adapt
+    status: ready
+  - id: EXPERT-20
+    name: Vision Generator
+    domain: product-planning
+    path: skills/product-planning/EXPERT-20-vision-generator
+    tier: needs-adapt
+    status: ready
+  - id: EXPERT-21
+    name: PRD Generator
+    domain: product-planning
+    path: skills/product-planning/EXPERT-21-prd-generator
+    tier: needs-adapt
+    status: ready
+  - id: EXPERT-22
+    name: Epic Generator
+    domain: product-planning
+    path: skills/product-planning/EXPERT-22-epic-generator
+    tier: needs-adapt
+    status: ready
+  - id: EXPERT-23
+    name: Epic PRD Generator
+    domain: product-planning
+    path: skills/product-planning/EXPERT-23-epic-prd-generator
+    tier: needs-adapt
+    status: ready
+  - id: EXPERT-26
+    name: Brainstormer
+    domain: product-planning
+    path: skills/product-planning/EXPERT-26-brainstormer
+    tier: optional-adapt
+    status: ready
+  - id: EXPERT-27
+    name: Technical Architecture Generator
+    domain: product-planning
+    path: skills/product-planning/EXPERT-27-technical-architecture-generator
+    tier: needs-adapt
+    status: ready
+  - id: EXPERT-11
+    name: UX/UI Designer
+    domain: design-creative
+    path: skills/design-creative/EXPERT-11-ux-ui-designer
+    tier: needs-adapt
+    status: ready
+  - id: DESIGN-04
+    name: Frontend Design
+    domain: design-creative
+    path: skills/design-creative/DESIGN-04-frontend-design
+    tier: optional-adapt
+    status: ready
+  - id: DOC-OPS-08
+    name: Presentation System
+    domain: document-ops
+    path: skills/document-ops/DOC-OPS-08-presentation-system
+    tier: needs-adapt
+    status: ready
+  - id: RESEARCH-01
+    name: Competitive Analysis
+    domain: research
+    path: skills/research/RESEARCH-01-competitive-analysis
+    tier: optional-adapt
+    status: ready
+  - id: OPS-02
+    name: Daily Report Generator
+    domain: operations
+    path: skills/operations/OPS-02-daily-report-generator
+    tier: needs-adapt
+    status: ready
+  - id: OPS-03
+    name: Weekly PPP Generator
+    domain: operations
+    path: skills/operations/OPS-03-weekly-ppp-generator
+    tier: needs-adapt
+    status: ready
+  - id: CLIENT-01
+    name: Proposal Generator
+    domain: client-services
+    path: skills/client-services/CLIENT-01-proposal-generator
+    tier: needs-adapt
+    status: ready

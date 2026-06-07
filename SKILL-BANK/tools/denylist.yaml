@@ -1,0 +1,61 @@
+# denylist.yaml — terms/patterns that must NOT appear in a shareable template.
+# Loaded by leak-gate.py and merged with terms auto-sourced from CLIENTS/ and
+# PROJECTS/team.yaml at scan time. Hand-maintain the brand/product entries here.
+#
+# deny  -> any match BLOCKS (leak-gate exits non-zero)
+# warn  -> any match is REPORTED but does not block (unless --strict)
+# Matching is case-insensitive, whole-word for plain terms.
+
+deny:
+  terms:
+    # identity
+    - "Xyric"
+    - "xyric.ai"
+    - "Always Ahead."
+    - "Your Strategic Data & AI Partner"
+    # brand palette names
+    - "Cobalt Power"
+    - "Electric Lime"
+    - "Stark Alabaster"
+    - "Deep Obsidian"
+    - "Kinetic Palette"
+    # brand fonts
+    - "GC Vank"
+    - "Azeret Mono"
+    - "IT Gliphexion"
+    # brand hexes
+    - "#0030FF"
+    - "#E5FF00"
+    - "#F7F7F7"
+    - "#191919"
+    - "#E9FF00"
+  patterns:
+    # prefixed internal service codes, e.g. DATA-1.1, AI-2.3
+    - '\b(?:DATA|AI)-[12]\.[0-9]\b'
+
+warn:
+  terms:
+    # Xyric product names — usually shouldn't appear in a generic template
+    - "yHealth"
+    - "PropertyAI"
+    - "BuildOps"
+    - "C-UniAI"
+    - "RiskBridge"
+    - "EverythingAI"
+    - "HomeClinic"
+    - "TradeAI"
+    - "TaqiAI"
+    - "BrandScanner"
+    - "Balencia"
+    - "Gold Tracker"
+    - "Silicon Legion"
+    # wiki folder structure (hardcoding it makes a skill non-portable)
+    - "NEXT-STEPS.md"
+    - "PROGRESS-DEV.md"
+  patterns:
+    - 'PRODUCTS/'
+    - 'PROJECTS/'
+    - 'CLIENTS/'
+    - '\bPROGRESS\.md\b'
+    # dollar tiers / pricing — review before publishing
+    - '\$\s?[0-9]+\s?[KkMm]\b'

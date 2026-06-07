@@ -1,0 +1,25 @@
+.DS_Store
+node_modules/
+.env
+.env.*
+
+# Keep CREATIVES index-first. Store heavy files in Drive or another asset store.
+CREATIVES/**/*.png
+CREATIVES/**/*.jpg
+CREATIVES/**/*.jpeg
+CREATIVES/**/*.gif
+CREATIVES/**/*.webp
+CREATIVES/**/*.svg
+CREATIVES/**/*.mp4
+CREATIVES/**/*.mov
+CREATIVES/**/*.avi
+CREATIVES/**/*.psd
+CREATIVES/**/*.ai
+CREATIVES/**/*.fig
+CREATIVES/**/*.sketch
+CREATIVES/**/*.pdf
+CREATIVES/**/*.ppt
+CREATIVES/**/*.pptx
+CREATIVES/**/*.zip
+CREATIVES/**/*.tar
+CREATIVES/**/*.gz

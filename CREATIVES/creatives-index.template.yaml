@@ -1,0 +1,21 @@
+version: 1
+drive_root_url: ""
+notes: "Copy this file to creatives-index.yaml and add project-specific references."
+
+references:
+  - id: REF-001
+    title: "Example reference title"
+    type: "ui-reference"
+    source_url: "https://example.com"
+    source_note: ""
+    drive_url: ""
+    license: "unknown"
+    attribution: "Creator or source name"
+    tags:
+      - interface
+      - dashboard
+      - layout
+    why: "What makes this worth remembering."
+    usage_notes: "Use as inspiration only until license is confirmed."
+    added_by: ""
+    added_at: "YYYY-MM-DD"

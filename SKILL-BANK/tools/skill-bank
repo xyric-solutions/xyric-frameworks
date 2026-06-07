@@ -1,0 +1,203 @@
+#!/usr/bin/env bash
+# skill-bank - list and install selected public skills into Claude or Codex projects.
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BANK="$(cd "$SCRIPT_DIR/.." && pwd)"
+SKILLS="$BANK/skills"
+
+die() {
+  echo "error: $*" >&2
+  exit 1
+}
+
+usage() {
+  cat <<'EOF'
+Usage:
+  skill-bank list
+  skill-bank install <ID|domain> [<ID|domain> ...] --target claude|codex --repo <path> [--allow-category] [--overwrite]
+
+Examples:
+  SKILL-BANK/tools/skill-bank list
+  SKILL-BANK/tools/skill-bank install MKT-03 --target claude --repo /path/to/project
+  SKILL-BANK/tools/skill-bank install EXPERT-11 --target codex --repo /path/to/project
+
+Notes:
+  - Install only the skills you need.
+  - "all" installs are refused.
+  - Domain/category installs require --allow-category and should be used sparingly.
+EOF
+}
+
+frontmatter() {
+  local file="$1" key="$2"
+  awk -v k="$key" '
+    /^---[[:space:]]*$/ {
+      if (!seen) { seen=1; fm=1; next }
+      if (fm) exit
+    }
+    fm && $0 ~ "^" k ":" {
+      sub("^" k ":[[:space:]]*", "")
+      gsub(/^"|"$/, "")
+      print
+      exit
+    }
+  ' "$file"
+}
+
+skill_id_from_dir() {
+  basename "$1" | grep -oE '^[A-Z]+(-[A-Z]+)?-[0-9]+' || basename "$1"
+}
+
+cmd_list() {
+  [[ -d "$SKILLS" ]] || die "missing skills directory: $SKILLS"
+  printf "%-12s %-36s %-18s %s\n" "ID" "NAME" "DOMAIN" "TIER"
+  printf "%-12s %-36s %-18s %s\n" "------------" "------------------------------------" "------------------" "------------"
+  while IFS= read -r skillmd; do
+    local dir domain id name tier
+    dir="$(dirname "$skillmd")"
+    domain="$(basename "$(dirname "$dir")")"
+    id="$(skill_id_from_dir "$dir")"
+    name="$(frontmatter "$skillmd" name)"
+    tier="$(frontmatter "$skillmd" tier)"
+    [[ -n "$name" ]] || name="$(basename "$dir")"
+    [[ -n "$tier" ]] || tier="-"
+    printf "%-12s %-36s %-18s %s\n" "$id" "${name:0:36}" "$domain" "$tier"
+  done < <(find "$SKILLS" -mindepth 3 -maxdepth 3 -name SKILL.md | sort)
+}
+
+resolve_skill_or_domain() {
+  local query="$1"
+  if [[ "$query" == "all" || "$query" == "--all" || "$query" == "*" ]]; then
+    die "refusing to install all skills. Pick only the skills that help this project."
+  fi
+  if [[ -d "$SKILLS/$query" ]]; then
+    find "$SKILLS/$query" -mindepth 1 -maxdepth 1 -type d | sort
+    return
+  fi
+  find "$SKILLS" -mindepth 2 -maxdepth 2 -type d -name "${query}-*" | sort
+}
+
+target_root_for() {
+  local target="$1" repo="$2"
+  case "$target" in
+    claude) printf "%s/.claude/skills" "$repo" ;;
+    codex) printf "%s/.agents/skills" "$repo" ;;
+    *) die "--target must be claude or codex" ;;
+  esac
+}
+
+lock_file_for() {
+  local target="$1" repo="$2"
+  case "$target" in
+    claude) printf "%s/.claude/skill-bank.lock" "$repo" ;;
+    codex) printf "%s/.agents/skill-bank.lock" "$repo" ;;
+    *) die "--target must be claude or codex" ;;
+  esac
+}
+
+record_lock() {
+  local lock="$1" id="$2" src="$3" dest="$4" target="$5"
+  mkdir -p "$(dirname "$lock")"
+  touch "$lock"
+  grep -v "^$id[[:space:]]" "$lock" > "$lock.tmp" 2>/dev/null || true
+  mv "$lock.tmp" "$lock"
+  printf "%s\ttarget=%s\tsource=%s\tdest=%s\tinstalled=%s\n" \
+    "$id" "$target" "${src#$BANK/}" "$dest" "$(date -u +%FT%TZ)" >> "$lock"
+}
+
+copy_skill() {
+  local src="$1" target_root="$2" lock="$3" target="$4" overwrite="$5"
+  local base id dest
+  base="$(basename "$src")"
+  id="$(skill_id_from_dir "$src")"
+  dest="$target_root/$base"
+  if [[ -d "$dest" && "$overwrite" -ne 1 ]]; then
+    echo "skip: $id already exists at $dest (use --overwrite to replace)"
+    return
+  fi
+  if [[ -d "$dest" && "$overwrite" -eq 1 ]]; then
+    rm -rf "$dest"
+  fi
+  mkdir -p "$target_root"
+  cp -R "$src" "$dest"
+  record_lock "$lock" "$id" "$src" "$dest" "$target"
+  echo "installed: $id -> $dest"
+}
+
+cmd_install() {
+  local target="" repo="" allow_category=0 overwrite=0
+  local items=()
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --target)
+        [[ $# -ge 2 ]] || die "--target needs claude or codex"
+        target="$2"
+        shift 2
+        ;;
+      --repo)
+        [[ $# -ge 2 ]] || die "--repo needs a path"
+        repo="$2"
+        shift 2
+        ;;
+      --allow-category)
+        allow_category=1
+        shift
+        ;;
+      --overwrite)
+        overwrite=1
+        shift
+        ;;
+      --help|-h)
+        usage
+        exit 0
+        ;;
+      --*)
+        die "unknown flag: $1"
+        ;;
+      *)
+        items+=("$1")
+        shift
+        ;;
+    esac
+  done
+
+  [[ ${#items[@]} -gt 0 ]] || die "install needs at least one skill ID"
+  [[ -n "$target" ]] || die "install needs --target claude|codex"
+  [[ -n "$repo" ]] || die "install needs --repo <path>"
+  [[ -d "$repo" ]] || die "repo path does not exist: $repo"
+  repo="$(cd "$repo" && pwd)"
+
+  local target_root lock
+  target_root="$(target_root_for "$target" "$repo")"
+  lock="$(lock_file_for "$target" "$repo")"
+
+  for query in "${items[@]}"; do
+    if [[ -d "$SKILLS/$query" && "$allow_category" -ne 1 ]]; then
+      echo "warning: '$query' is a domain/category install." >&2
+      echo "warning: install selected skill IDs instead, or rerun with --allow-category." >&2
+      exit 1
+    fi
+    local matches
+    matches="$(resolve_skill_or_domain "$query")"
+    [[ -n "$matches" ]] || { echo "not found: $query" >&2; continue; }
+    while IFS= read -r src; do
+      copy_skill "$src" "$target_root" "$lock" "$target" "$overwrite"
+    done <<< "$matches"
+  done
+}
+
+main() {
+  local cmd="${1:-}"
+  shift || true
+  case "$cmd" in
+    list) cmd_list ;;
+    install) cmd_install "$@" ;;
+    help|--help|-h|"") usage ;;
+    *) die "unknown command: $cmd" ;;
+  esac
+}
+
+main "$@"
