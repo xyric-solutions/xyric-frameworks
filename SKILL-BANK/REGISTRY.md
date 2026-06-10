@@ -32,9 +32,13 @@ Human-readable view of `registry.yaml`.
 | OPS-02 | Daily Report Generator | operations | needs-adapt | `skills/operations/OPS-02-daily-report-generator` |
 | OPS-03 | Weekly PPP Generator | operations | needs-adapt | `skills/operations/OPS-03-weekly-ppp-generator` |
 | CLIENT-01 | Proposal Generator | client-services | needs-adapt | `skills/client-services/CLIENT-01-proposal-generator` |
+| AITOOLS-01 | Caveman | ai-tooling | ready | `skills/ai-tooling/AITOOLS-01-caveman` |
+| AITOOLS-02 | RTK (Rust Token Killer) | ai-tooling | ready | `skills/ai-tooling/AITOOLS-02-rtk` |
+| AITOOLS-03 | Supermemory | ai-tooling | needs-credentials | `skills/ai-tooling/AITOOLS-03-supermemory` |
 
 ## Tier Rules
 
 - `generic`: use as-is.
 - `optional-adapt`: works neutral; `ADAPT.md` notes optional enrichment.
 - `needs-adapt`: read `ADAPT.md` before tailored use.
+- `needs-credentials`: install is simple but requires an external account or API key.
